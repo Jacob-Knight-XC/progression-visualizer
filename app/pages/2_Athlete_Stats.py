@@ -88,9 +88,9 @@ with content_frame():
     metric_row(
         [
             ("Personal best", stats["personal_best"]),
-            ("Season best · 1st year", stats["first_year_best"]),
+            ("1st-year best", stats["first_year_best"]),
             ("Overall improvement", stats["overall_improvement"]),
-            ("Improvement · 1st year", stats["first_year_improvement"]),
+            ("1st-year improvement", stats["first_year_improvement"]),
         ]
     )
 
