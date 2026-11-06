@@ -1,2 +1,58 @@
-# progression-visualizer
-Program to scrap TFRRS in order to visualize individual and team race progression in user specified events during the athletes collegiate career. The script to run the program is tfrrs/progression-visualizer.py from here. The three python scripts here are smaller scripts for us to get used to matplotlib and PyQt5. Before running make sure to have matplotlib, numpy, PyQt5, and scrapy, all of which are pip installable, installed. The spider to collect data can be ran when in the first tfrrs folder in a command shell using the command   scrapy crawl runner. The database ended up being to large for git so it can be found here https://drive.google.com/file/d/1jPNA6SuEnelLwBxSXfHx45mkygkNh-_7/view?usp=sharing. Put this database as ncaa.db in the tfrrs folder with progression-visualizer.py and ncaa_db_queries.py. If there are any further questions or an athlete is missing data you can write to maegts@hotmail.com and I will try my best to fix issues in a timely manner. I will also try to update the db after every national championship (xc, indoor, and outdoor). As of right now the athletes were on a roster for the 2021 outdoor season, getting past seasons is a task I/we haven't gotten around to.
+# TFRRS Progression Visualizer
+
+Streamlit app that pulls **live** collegiate track & field and cross country
+history from [TFRRS](https://tfrrs.org) and charts an athlete’s career
+progression by event.
+
+This is a modernization of the original PyQt5 / Scrapy project: the offline
+`ncaa.db` download is no longer required. Teams, rosters, and marks are fetched
+on demand (with short Streamlit caches). The UI matches the look of the related
+[XC Race Simulator](https://github.com/Jacob-Knight-XC/Race-Simulator).
+
+## What you can do
+
+| Page | Purpose |
+|------|---------|
+| **Home** | Live athlete lookup + quick PR / improvement snapshot |
+| **Progression** | Season-overlaid career plot for one event + meet table |
+| **Athlete Stats** | Personal best, first-year best, overall & first-year improvement |
+| **About** | Background and run instructions |
+
+Sidebar controls:
+
+- College division (NCAA DI / DII / DIII / NAIA)
+- **Refresh live data** to clear cached TFRRS responses
+
+## Setup
+
+```bash
+pip install -r requirements.txt
+cd app
+streamlit run Home.py
+```
+
+`runtime.txt` pins **Python 3.12** for Streamlit Community Cloud. Prefer 3.11–3.12
+locally as well.
+
+## Project layout
+
+```
+app/                 Streamlit app (run from here)
+  Home.py            Landing page + live athlete lookup
+  tfrrs_client.py    Live TFRRS HTTP client (teams / roster / history)
+  analytics.py       Progression series, PRs, improvement, matplotlib chart
+  ui_helpers.py      Theme, pickers, cached loaders
+  pages/             Progression / Stats / About
+tfrrs/               Original Scrapy spider + PyQt desktop app (legacy)
+```
+
+## Legacy desktop app
+
+The original PyQt visualizer and Scrapy crawler still live under `tfrrs/`. They
+expected a large `ncaa.db` that was removed from git. Prefer the Streamlit app
+above for day-to-day use.
+
+## Credits
+
+Original project by Nick Meling and Matt Egts. Streamlit + live-data rebuild
+for this fork.
